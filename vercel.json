@@ -1,0 +1,13 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "crons": [
+    {
+      "path": "/api/cron/expire-reservations",
+      "schedule": "* * * * *"
+    },
+    {
+      "path": "/api/cron/refresh-metal-rates",
+      "schedule": "0 3 * * *"
+    }
+  ]
+}
