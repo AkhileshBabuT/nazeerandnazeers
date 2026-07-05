@@ -1,0 +1,114 @@
+@import "tailwindcss";
+
+/*
+ * Gallery Ledger design tokens (PRD 06 §3.1). Light mode only — deliberate.
+ * oklch values are authoritative (over any design-PNG hex).
+ */
+:root {
+  --background: oklch(0.98 0.004 80); /* warm porcelain */
+  --foreground: oklch(0.18 0.008 60); /* warm charcoal ink */
+  --card: oklch(1 0 0); /* pure white lift */
+  --card-foreground: oklch(0.18 0.008 60);
+  --primary: oklch(0.18 0.008 60); /* charcoal — type is the brand */
+  --primary-foreground: oklch(0.98 0.004 80);
+  --secondary: oklch(0.93 0.006 75); /* warm stone */
+  --secondary-foreground: oklch(0.3 0.008 60);
+  --muted: oklch(0.92 0.005 70);
+  --muted-foreground: oklch(0.45 0.012 65);
+  --accent: oklch(0.74 0.12 82); /* the one disciplined gold */
+  --accent-foreground: oklch(0.14 0.008 60);
+  --destructive: oklch(0.52 0.18 25); /* vermillion ink, not alarm red */
+  --border: oklch(0.88 0.006 72); /* hairline */
+  --input: oklch(0.95 0.004 75);
+  --ring: oklch(0.74 0.12 82);
+  /* brand extras */
+  --gold: oklch(0.74 0.12 82);
+  --silver: oklch(0.68 0.006 220);
+  --rate-up: oklch(0.5 0.13 145); /* forest green */
+  --rate-down: oklch(0.52 0.18 25);
+  --hallmark: oklch(0.65 0.12 48); /* stamp-pad sienna for BIS/HUID */
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-gold: var(--gold);
+  --color-silver: var(--silver);
+  --color-rate-up: var(--rate-up);
+  --color-rate-down: var(--rate-down);
+  --color-hallmark: var(--hallmark);
+
+  --font-display: var(--font-cormorant);
+  --font-sans: var(--font-dm-sans);
+  --font-mono: var(--font-dm-mono);
+
+  /* Type scale (PRD §3.2): 11/13/15/17/22/30/42/64px */
+  --text-xs: 0.6875rem;
+  --text-sm: 0.8125rem;
+  --text-base: 0.9375rem;
+  --text-md: 1.0625rem;
+  --text-lg: 1.375rem;
+  --text-xl: 1.875rem;
+  --text-2xl: 2.625rem;
+  --text-display: 4rem;
+
+  /* Radius (PRD §3.3): 2px inputs/badges, 4px cards; pill only for ticker
+     chip + countdown. */
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+}
+
+@layer base {
+  *,
+  ::before,
+  ::after {
+    border-color: var(--color-border);
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-dm-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 2px;
+  }
+}
+
+/* Small-caps eyebrow label — recurs on every screen (PRD §3.2). */
+@utility eyebrow {
+  font-family: var(--font-dm-sans);
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* Ledger numerals — every ₹/weight/rate/HUID/countdown (PRD §3.2). */
+@utility ledger {
+  font-family: var(--font-dm-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Hero sliding-banner animation (2 panels, 24 s). */
+@keyframes slideBanner {
+  0%,  35% { transform: translateX(0%); }
+  50%, 90% { transform: translateX(-50%); }
+  100%     { transform: translateX(0%); }
+}

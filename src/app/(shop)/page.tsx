@@ -5,7 +5,7 @@ import { ProductCard } from "@/components/storefront/product-card";
 import { cn } from "@/lib/utils";
 
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const HERO_BANNERS = ["Herobanner1.png", "Herobanner2.png", "herobanner3.png"];
+const HERO_BANNERS = ["herobanner1.png", "herobanner2.png"];
 
 export const metadata = { title: "Nazeer & Nazeers" };
 
@@ -51,9 +51,9 @@ export default async function Home({
       {/* ── Hero: full-bleed 3-panel sliding banner ── */}
       <section className="relative h-[480px] overflow-hidden border-b md:h-[640px]">
         {/* sliding track */}
-        <div className="absolute inset-0 flex h-full w-[300%] animate-[slideBanner_24s_ease-in-out_infinite]">
+        <div className="absolute inset-0 flex h-full w-[200%] animate-[slideBanner_24s_ease-in-out_infinite]">
           {HERO_BANNERS.map((filename, i) => (
-            <div key={i} className="relative h-full w-1/3">
+            <div key={i} className="relative h-full w-1/2">
               <Image
                 src={`${SUPABASE_URL}/storage/v1/object/public/hero-banners/${filename}`}
                 alt="Nazeer and Nazeers"
@@ -84,7 +84,6 @@ export default async function Home({
         {/* slide indicator dots */}
         <div className="absolute bottom-[18px] left-1/2 flex -translate-x-1/2 gap-2 md:bottom-[22px]">
           <span className="block h-0.5 w-7 bg-white/85" />
-          <span className="block h-0.5 w-7 bg-white/40" />
           <span className="block h-0.5 w-7 bg-white/40" />
         </div>
       </section>

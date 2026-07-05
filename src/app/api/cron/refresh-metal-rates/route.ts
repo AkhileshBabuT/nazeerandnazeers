@@ -18,13 +18,15 @@ import {
 import { createServiceClient } from "@/lib/supabase/service";
 
 export async function GET(request: Request): Promise<Response> {
-  // Gate behind the Vercel Cron secret when one is configured.
+  // Fail closed: in production the Cron secret is mandatory, so a missing env var
+  // can never leave this endpoint publicly triggerable (it burns the metal-rate
+  // API quota and appends rows). Locally (no secret) it stays open for dev.
   const secret = process.env.CRON_SECRET;
-  if (secret) {
-    const auth = request.headers.get("authorization");
-    if (auth !== `Bearer ${secret}`) {
-      return Response.json({ error: "Unauthorized." }, { status: 401 });
-    }
+  if (process.env.NODE_ENV === "production" && !secret) {
+    return Response.json({ error: "Server misconfigured." }, { status: 500 });
+  }
+  if (secret && request.headers.get("authorization") !== `Bearer ${secret}`) {
+    return Response.json({ error: "Unauthorized." }, { status: 401 });
   }
 
   try {
